@@ -1,20 +1,24 @@
 class Solution {
 public:
-    vector<int> minOperations(string ar) {
-        int i,n=ar.size(),rh=0,sm=0,jm;
-        vector<int> ans;
-        for(i=0;i<n;i++){
-            sm+=rh;
-            ans.push_back(sm);
-            if(ar[i]=='1') rh++;
+    vector<int> minOperations(string a) {
+        vector<int> stepx,stepy,x;
+        int sumx,sumy;
+        sumx=a[0]=='1'?1:0;
+        stepx.push_back(0);
+        sumy=(a[a.size()-1])=='1'?1:0;
+        stepy.push_back(0);
+        int n=a.size();
+        for(int i=1;i<a.size();i++)
+        {
+            stepx.push_back(sumx+stepx[i-1]);
+            sumx=(sumx+(a[i]=='1'?1:0));
+            
+            stepy.push_back(sumy+stepy[i-1]);
+            sumy=(sumy+(a[n-i-1]=='1'?1:0));
+            
         }
-        rh=sm=0;
-        if(ar[n-1]=='1') rh++;
-        for(i=n-2;i>=0;i--){
-            sm+=rh;
-            ans[i]=sm+ans[i];
-            if(ar[i]=='1') rh++; 
-        }
-        return ans;
+        for(int i=0;i<n;i++)
+            x.push_back(stepx[i]+stepy[n-i-1]);
+        return x;
     }
 };
