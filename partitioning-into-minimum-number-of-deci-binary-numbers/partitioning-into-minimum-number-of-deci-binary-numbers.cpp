@@ -1,18 +1,13 @@
+static const auto fast = []()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    return 0;
+}();
 class Solution {
 public:
-    bool comp(int a,int b)
-    {
-        return(a<b);
-    }
     int minPartitions(string n) {
-        char max='0';
-        for(int i=0;i<n.size();i++)
-        {
-            if(n[i]>=max)
-                max=n[i];
-            if(n[i]=='9')
-                break;
-        }
-        return (int)max-48;
+        return *max_element(n.begin(),n.end())-'0';
     }
 };
