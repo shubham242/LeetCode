@@ -11,6 +11,7 @@
  */
 class Solution {
 public:
+    int sum=0;
     int lvl(TreeNode* root,int l){
         if(root->left!=NULL&&root->right!=NULL)
             return max(lvl(root->left,l+1),lvl(root->right,l+1));
@@ -22,20 +23,20 @@ public:
             return l; 
     }
     
-    int deepSum(TreeNode* root,int l,int sum,int deep){
+    int deepSum(TreeNode* root,int l,int deep){
         if(l==deep)
             sum+=root->val;
         if(root->left!=NULL)
-            sum+=deepSum(root->left,l+1,0,deep); 
+            deepSum(root->left,l+1,deep); 
         if(root->right!=NULL)
-            sum+=deepSum(root->right,l+1,0,deep);
+            deepSum(root->right,l+1,deep);
         return sum;
     }
         
     int deepestLeavesSum(TreeNode* root) {
         
         int deep = lvl(root,1);
-        return deepSum(root,1,0,deep);
+        return deepSum(root,1,deep);
         
     }
 };
