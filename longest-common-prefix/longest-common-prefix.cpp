@@ -7,19 +7,14 @@ static const auto fast = []()
 class Solution
 {
 public:
-    string com(string &s1, string &s2)
-    {
-        int i;
-        for (i = 0; i < min(s1.size(), s2.size()); i++)
-        {
-            if (s1[i] != s2[i])
-                break;
-        }
-        return s1.substr(0, i);
-    }
     string longestCommonPrefix(vector<string> &strs)
     {
         sort(strs.begin(), strs.end());
-        return com(strs[0],strs[strs.size()-1]);
+        for (int i = 0; i < min(strs[0].size(), strs[strs.size()-1].size()); i++)
+        {
+            if (strs[0][i] != strs[strs.size()-1][i])
+                return strs[0].substr(0, i);
+        }
+        return strs[0];
     }
 };
