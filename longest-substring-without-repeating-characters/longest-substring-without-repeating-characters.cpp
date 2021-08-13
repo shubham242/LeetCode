@@ -3,7 +3,6 @@ class Solution
 public:
     vector<int> arr = vector<int>(256, 0);
     vector<int> temp = vector<int>(256, 0);
-    vector<int> zero = vector<int>(256, 0);
     int lengthOfLongestSubstring(string s)
     {
         int max_len = 0;
