@@ -9,6 +9,12 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+static const auto fast = []()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    return 0;
+}();
 class Solution {
 public:
     bool traverse(TreeNode* p, TreeNode* q)
