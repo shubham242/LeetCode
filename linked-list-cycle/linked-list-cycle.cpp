@@ -13,7 +13,6 @@ public:
     {
         ListNode* n=head;
         ListNode* p=head;
-        
         while(n)
         {
             if(n->next==head) return true;
@@ -22,7 +21,6 @@ public:
             p->next=head;
             
         }
-        
         return false;
         
     }
