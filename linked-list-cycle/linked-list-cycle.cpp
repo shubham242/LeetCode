@@ -11,16 +11,19 @@ class Solution
 public:
     bool hasCycle(ListNode *head)
     {
-        unordered_map<ListNode *, int> mp;
-
-        while (head)
+        ListNode* n=head;
+        ListNode* p=head;
+        
+        while(n)
         {
-            if (mp[head] > 0)
-                return true;
-            mp[head]++;
-            head = head->next;
+            if(n->next==head) return true;
+            p=n;
+            n=n->next;
+            p->next=head;
+            
         }
-
+        
         return false;
+        
     }
 };
