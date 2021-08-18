@@ -20,10 +20,8 @@ public:
         arr.push_back(root->val);
     }
     vector<int> postorderTraversal(TreeNode* root) {
-        vector<int> res;
-        
+        vector<int> res;        
         postorder(root,res);
-        
         return res; 
         
     }
