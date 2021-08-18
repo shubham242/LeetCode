@@ -6,12 +6,11 @@ public:
         map<int, int> mp;
 
         for (int i = 0; i < n.size(); i++)
-            mp[n[i]]++;
+            if (mp[n[i]])
+                mp.erase(n[i]);
+            else
+                mp[n[i]]++;
 
-        for (auto it : mp)
-            if (it.second == 1)
-                return it.first;
-
-        return 0;
+        return mp.begin()->first;
     }
 };
