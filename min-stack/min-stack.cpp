@@ -18,6 +18,7 @@ public:
             arr[++tp] = val;
         else
             arr[++tp] = 2 * val - mini;
+        
         if(tp==0)
             mini=val;
         else
