@@ -1,2 +1,2 @@
 # LeetCode
-[![Shubham's LeetCode stats](https://leetcode-stats-six.vercel.app/api?username=shubham242&&theme=dark)](https://github.com/KnlnKS/leetcode-stats)
+![Leetcode Stats](https://leetcode.card.workers.dev/?username=shubham242&extension=activity&style=auto)  
