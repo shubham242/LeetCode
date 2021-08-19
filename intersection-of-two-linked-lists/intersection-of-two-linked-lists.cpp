@@ -6,34 +6,14 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution
-{
+class Solution {
 public:
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
-    {
-
-        unordered_map<ListNode *, int> mp;
-
-        ListNode *a = headA;
-        ListNode *b = headB;
-
-        while (a || b)
-        {
-            if (a)
-            {
-                if (mp[a] > 0)
-                    return a;
-                mp[a]++;
-                a=a->next;
-            }
-            if (b)
-            {
-                if (mp[b] > 0)
-                    return b;
-                mp[b]++;
-                b=b->next;
-            }
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *a = headA, *b = headB;
+        while (a != b) {
+            a = !a ? headB : a->next;
+            b = !b ? headA : b->next;
         }
-        return NULL;
+        return a;
     }
 };
