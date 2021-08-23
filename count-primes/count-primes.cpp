@@ -1,4 +1,3 @@
-
 class Solution
 {
 public:
@@ -6,19 +5,17 @@ public:
     {
         if (n == 0 || n == 1)
             return 0;
-        bool prime[n];
+        vector<bool> prime(n + 1, true);
         int res = n - 2;
-        memset(prime, true, sizeof(prime));
-
-        for (int p = 2; p * p <= n - 1; p++)
+        for (int i = 2; i * i <= n-1; i++)
         {
-            if (prime[p] == true)
+            if (prime[i])
             {
-                for (int i = p * p; i <= n - 1; i += p)
+                for (int j = i * i; j <= n-1; j += i)
                 {
-                    if (prime[i])
+                    if (prime[j])
                         res--;
-                    prime[i] = false;
+                    prime[j] = false;
                 }
             }
         }
