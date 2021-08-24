@@ -5,7 +5,7 @@ public:
             return false;
         int a[26]={0};
         
-        for(int i=0;i<s.size();i++)
+        for(int i=0;s[i]!='\0';i++)
         {
             a[s[i]-97]++;
             a[t[i]-97]--;
