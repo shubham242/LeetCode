@@ -3,7 +3,7 @@ bool isAnagram(char * s, char * t){
             return false;
         int a[26]={0};
         
-        for(int i=0;i<strlen(s);i++)
+        for(int i=0;s[i]!='\0';i++)
         {
             a[s[i]-97]++;
             a[t[i]-97]--;
