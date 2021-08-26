@@ -1,21 +1,18 @@
 class Solution
 {
 public:
-    bool isSquare(long int x)
-    {
-        long long sr = sqrt(x);
-        return (sr * sr == x);
-    }
     bool judgeSquareSum(int c)
     {
-        if (c == 0)
-            return true;
-        double x = sqrt(c);
-
-        for (int i = 0; i < x; i++)
+        long int e = sqrt(c);
+        long int s = 0;
+        while (s <= e)
         {
-            if (isSquare(c - i * i))
+            if (c == s * s + e * e)
                 return true;
+            else if (c < s * s + e * e)
+                e--;
+            else
+                s++;
         }
         return false;
     }
