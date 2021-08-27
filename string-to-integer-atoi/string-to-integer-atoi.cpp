@@ -3,24 +3,31 @@ class Solution
 public:
     int myAtoi(string s)
     {
-        if(s.size()==0)
-            return 0;
-    long long int res = 0;
-    int indicator = 1;
-
-    int i = s.find_first_not_of(' ');
-        if(i>=s.size())
-            return 0;
-    if(s[i] == '-' || s[i] == '+')
-        indicator = (s[i++] == '-')? -1 : 1;
-        
-    while('0'<= s[i] && s[i] <= '9') 
-    {
-        res = res*10 + (s[i++]-'0');
-        if(res*indicator >= INT_MAX) return INT_MAX;
-        if(res*indicator <= INT_MIN) return INT_MIN;                
-    }
-        
-    return res*indicator;
+        long int x = 0;
+        int neg = 1;
+        bool f = false;
+        for (int i = 0; i < s.size(); i++)
+        {
+            if (!f && s[i] == ' ')
+                continue;
+            else if (!f && (s[i] == '-' || s[i] == '+'))
+            {
+                neg = s[i] == '-' ? -1 : 1;
+                if (!(s[i + 1] > 47 && s[i + 1] < 58))
+                    return 0;
+            }
+            else if (s[i] > 47 && s[i] < 58)
+            {
+                f = true;
+                x = x * 10 + s[i] - '0';
+                if (x * neg > INT_MAX)
+                    return INT_MAX;
+                if (x * neg < INT_MIN)
+                    return INT_MIN;
+            }
+            else
+                return x * neg;
+        }
+        return x * neg;
     }
 };
