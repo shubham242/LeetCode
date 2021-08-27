@@ -3,69 +3,24 @@ class Solution
 public:
     int myAtoi(string s)
     {
-        long long int x = 0;
-        bool neg = false;
-        bool found = false;
-        for (int i = 0; i < s.size(); i++)
-        {
-            if (x > INT_MAX)
-            {
+        if(s.size()==0)
+            return 0;
+    long long int res = 0;
+    int indicator = 1;
 
-                if (neg)
-                {
-                    x = -x;
-                    if (x < INT_MIN)
-                        return INT_MIN;
-                    else
-                        return x;
-                }
-                else
-                {
-                    if (x > INT_MAX)
-                        return INT_MAX;
-                    else
-                        return x;
-                }
-            }
-            if (s[i] > 47 && s[i] < 58)
-            {
-                if (!found)
-                    if (i > 0)
-                        if (s[i - 1] == '-')
-                            neg = true;
-                x = x * 10 + s[i] - 48;
-                found = true;
-            }
-            else
-            {
-                if (found)
-                    break;
-            }
-            if (!found)
-                if (s[i] == 32)
-                    continue;
-                else if (s[i] == '-' || s[i] == '+')
-                {
-                    if (!(s[i + 1] > 47 && s[i + 1] < 58))
-                        return 0;
-                }
-                else
-                    return 0;
-        }
-        if (neg)
-        {
-            x = -x;
-            if (x < INT_MIN)
-                return INT_MIN;
-            else
-                return x;
-        }
-        else
-        {
-            if (x > INT_MAX)
-                return INT_MAX;
-            else
-                return x;
-        }
+    int i = s.find_first_not_of(' ');
+        if(i>=s.size())
+            return 0;
+    if(s[i] == '-' || s[i] == '+')
+        indicator = (s[i++] == '-')? -1 : 1;
+        
+    while('0'<= s[i] && s[i] <= '9') 
+    {
+        res = res*10 + (s[i++]-'0');
+        if(res*indicator >= INT_MAX) return INT_MAX;
+        if(res*indicator <= INT_MIN) return INT_MIN;                
+    }
+        
+    return res*indicator;
     }
 };
