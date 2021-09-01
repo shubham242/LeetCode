@@ -3,7 +3,8 @@ public:
     bool containsNearbyDuplicate(vector<int> n, int k)
     {
         unordered_map<int, int> mp;
-        for (int i = 0; i < n.size(); i++)
+        int s=n.size();
+        for (int i = 0; i < s; i++)
         {
             if (mp[n[i]] > 0)
                 if (i + 1 - mp[n[i]] <= k)
