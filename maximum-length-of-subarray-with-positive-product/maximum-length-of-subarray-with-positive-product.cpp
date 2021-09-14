@@ -4,42 +4,38 @@ public:
     {
         int res = 0;
         int l = nums.size();
-        int negCount = 0, currMax = 0;
+        int negCountr = 0, currMaxr = 0;
+        int negCountl = 0, currMaxl = 0;
         for (int i = 0; i < l; i++)
         {
             if (nums[i] == 0)
             {
-                currMax = 0;
-                negCount = 0;
+                currMaxr = 0;
+                negCountr = 0;
             }
             else
             {
                 if (nums[i] < 0)
-                    negCount++;
-                currMax++;
-                if (negCount % 2 == 0)
-                    res = max(res, currMax);
+                    negCountr++;
+                currMaxr++;
+                if (negCountr % 2 == 0)
+                    res = max(res, currMaxr);
             }
-        }
-        negCount = 0;
-        currMax = 0;
-        for (int i = l - 1; i >= 0; i--)
-        {
-            if (nums[i] == 0)
+            
+            if (nums[l-i-1] == 0)
             {
-                currMax = 0;
-                negCount = 0;
+                currMaxl = 0;
+                negCountl = 0;
             }
             else
             {
-                if (nums[i] < 0)
-                    negCount++;
-                currMax++;
-                if (negCount % 2 == 0)
-                    res = max(res, currMax);
+                if (nums[l-i-1] < 0)
+                    negCountl++;
+                currMaxl++;
+                if (negCountl % 2 == 0)
+                    res = max(res, currMaxl);
             }
         }
-
         return res;
     }
 };
