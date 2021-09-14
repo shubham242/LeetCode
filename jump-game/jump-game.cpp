@@ -1,26 +1,10 @@
 class Solution {
 public:
-    
-    bool canJump(vector<int> &nums)
+    bool canJump(vector<int> &A)
     {
-        int l = nums.size();
-        for (int i = 0; i < l; i++)
-        {
-            if (i != l - 1 && nums[i] == 0)
-            {
-                bool f = false;
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    if (i - j < nums[j])
-                    {
-                        f = true;
-                        break;
-                    }
-                }
-                if (!f)
-                    return false;
-            }
-        }
-        return true;
+        int i = 0,n=A.size();
+        for (int reach = 0; i < n && i <= reach; ++i)
+            reach = max(i + A[i], reach);
+        return i == n;
     }
 };
