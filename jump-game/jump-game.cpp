@@ -4,7 +4,11 @@ public:
     {
         int i = 0,n=A.size();
         for (int reach = 0; i < n && i <= reach; ++i)
+        {
             reach = max(i + A[i], reach);
-        return i == n;
+            if(reach>=n-1)
+                return true;
+        }
+        return false;
     }
 };
