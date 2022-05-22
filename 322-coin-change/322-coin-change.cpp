@@ -3,9 +3,11 @@ class Solution
 public:
     int coinChange(vector<int> &coins, int amount)
     {
-        vector<int> h((amount + 1), INT_MAX - 1);
+        int h[amount+1];
+        for(int i=0;i<amount+1;i++)
+            h[i]=INT_MAX-1;
         h[0] = 0;
-        for (int i = 0; i < h.size(); i++)
+        for (int i = 0; i < amount+1; i++)
         {
             for (int j = 0; j < coins.size(); j++)
             {
@@ -13,6 +15,6 @@ public:
                     h[i] = min(h[i], 1 + h[i - coins[j]]);
             }
         }
-        return (h[h.size() - 1] < INT_MAX - 1) ? h[h.size() - 1] : -1;
+        return (h[amount] < INT_MAX-1 ) ? h[amount] : -1;
     }
 };
