@@ -1,3 +1,4 @@
+
 class Solution
 {
 public:
@@ -5,28 +6,19 @@ public:
     {
         int res = 0;
         int l = words.size();
-        int dp[l][26];
+        int dp[l];
         for (int i = 0; i < l; i++)
         {
-            for (int j = 0; j < 26; j++)
-                dp[i][j] = 0;
+            string s = "00000000000000000000000000";
             for (auto c : words[i])
-                dp[i][c - 'a']++;
+                s[c - 'a'] = '1';
+            dp[i] = stoi(s, 0, 2);
         }
         for (int i = 0; i < l; i++)
         {
             for (int j = i + 1; j < l; j++)
             {
-                bool f = false;
-                for (int k = 0; k < 26; k++)
-                {
-                    if (dp[i][k] > 0 && dp[j][k] > 0)
-                    {
-                        f = true;
-                        break;
-                    }
-                }
-                if (!f)
+                if ((dp[i] & dp[j]) == 0)
                     res = max(res, (int)words[i].size() * (int)words[j].size());
             }
         }
