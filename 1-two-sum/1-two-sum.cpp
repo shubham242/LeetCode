@@ -8,17 +8,14 @@ public:
         unordered_map<int, int> st;
 
         for (int i = 0; i < l; i++)
-            st[nums[i]] = i + 1;
-
-        for (int i = 0; i < l; i++)
         {
-            int x = st[target - nums[i]];
-            if (x != 0 && x != i + 1)
+            if (st.find(target - nums[i]) != st.end())
             {
                 ans.push_back(i);
-                ans.push_back(x - 1);
+                ans.push_back(st[target - nums[i]]);
                 return ans;
             }
+            st[nums[i]] = i;
         }
         return ans;
     }
