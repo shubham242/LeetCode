@@ -16,11 +16,11 @@ public:
         int maxLen = 0;
         unordered_map<int, int> mp;
         mp[A[0]] = 0;
-        for (int i = 1; i < n; i++)
-            A[i] += A[i - 1];
 
         for (int i = 0; i < n; i++)
         {
+            if (i)
+                A[i] += A[i - 1];
             if (A[i] == 0)
                 maxLen = max(maxLen, i + 1);
             if (mp.find(A[i]) != mp.end())
