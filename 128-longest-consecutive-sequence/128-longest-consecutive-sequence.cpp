@@ -8,7 +8,7 @@ public:
         for (auto i : nums)
             set.insert(i);
 
-        for (auto i : nums)
+        for (auto i : set)
         {
             if (!set.count(i - 1))
             {
