@@ -1,47 +1,26 @@
 class Solution
 {
 public:
-    bool isSafe(vector<string> &a, int i, int j, int n)
+    int recur(vector<bool> &col, vector<bool> &dia, vector<bool> &adia, int n, int pos)
     {
-        bool f = true;
-        for (int k = 1; i - k >= 0 || j + k < n || j - k >= 0; k++)
-            if ((i - k >= 0 && j - k >= 0 && a[i - k][j - k] == 'Q') || (i - k >= 0 && a[i - k][j] == 'Q') || (i - k >= 0 && j + k < n && a[i - k][j + k] == 'Q'))
-            {
-                f = false;
-                break;
-            }
-
-        return f;
-    }
-    void recur(vector<string> &a, int &ans, int n, int pos)
-    {
+        int count = 0;
         if (pos == n)
-        {
-            ans++;
-            return;
-        }
+            return 1;
+
         for (int i = 0; i < n; i++)
         {
-            if (isSafe(a, pos, i, n))
+            if (!col[i] && !dia[pos + i] && !adia[pos - i + n - 1])
             {
-                a[pos][i] = 'Q';
-                recur(a, ans, n, pos + 1);
-                a[pos][i] = '.';
+                col[i] = dia[pos + i] = adia[pos - i + n - 1] = true;
+                count += recur(col, dia, adia, n, pos + 1);
+                col[i] = dia[pos + i] = adia[pos - i + n - 1] = false;
             }
         }
+        return count;
     }
     int totalNQueens(int n)
     {
-
-        int ans = 0;
-        vector<string> a;
-        for (int i = 0; i < n; i++)
-        {
-            string s(n, '.');
-            a.push_back(s);
-        }
-
-        recur(a, ans, n, 0);
-        return ans;
+        vector<bool> col(n), dia(2 * n - 1), adia(2 * n - 1);
+        return recur(col, dia, adia, n, 0);
     }
 };
