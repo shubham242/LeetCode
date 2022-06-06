@@ -12,14 +12,11 @@ struct ListNode* middleNode(struct ListNode* head){
     struct ListNode* slow=head;
     struct ListNode* fast=head;
     
-    while(fast->next&&fast->next->next)
+    while(fast&&fast->next)
     {
         slow=slow->next;
         fast=fast->next->next;
     }
-    
-    if(!fast->next)
+
         return slow;
-    else
-        return slow->next;
 }
