@@ -4,7 +4,6 @@ public:
     int trap(vector<int> &h)
     {
         int l = h.size();
-        unordered_map<int, int> mp;
         int sum = 0;
 
         int maxH = 0;
