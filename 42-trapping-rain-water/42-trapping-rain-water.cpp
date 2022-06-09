@@ -3,25 +3,39 @@ class Solution
 public:
     int trap(vector<int> &h)
     {
-        int l = h.size();
+        int s = 0;
+        int e = h.size() - 1;
+        int hs = 0, he = 0;
         int sum = 0;
-
-        int maxH = 0;
-
-        for (int i = 0; i < l; i++)
+        while (s <= e)
         {
-            maxH = 0;
-            if (h[i] > 0)
-                for (int j = i - 1; j >= 0; j--)
-                    if (h[j] > maxH)
-                    {
-                        sum += (i - j - 1) * (min(h[j], h[i]) - maxH);
-                        if (h[j] >= h[i])
-                            break;
-                        maxH = h[j];
-                    }
-        }
+            hs = max(hs, h[s]);
+            he = max(he, h[e]);
 
-        return sum;
+            if (hs <= he)
+            {
+                sum += hs;
+                s++;
+            }
+            else if (he < hs)
+            {
+                sum += he;
+                e--;
+            }
+            else
+            {
+                sum += hs;
+                s++;
+                if (s < e)
+                {
+                    sum += he;
+                    e--;
+                }
+            }
+        }
+        int total = 0;
+        for (auto i : h)
+            total += i;
+        return sum - total;
     }
 };
