@@ -4,29 +4,40 @@ public:
     int minOperations(vector<int> &nums, int x)
     {
         int l = nums.size();
+        int total = 0;
+        for (int i = 0; i < l; i++)
+            total += nums[i];
 
-        unordered_map<int, int> mp;
-        mp[nums[0]] = 0;
-        for (int i = 1; i < l; i++)
-        {
-            nums[i] += nums[i - 1];
-            mp[nums[i]] = i;
-        }
-
-        int toFind = nums[l - 1] - x;
+        int toFind = total - x;
         int maxLen = -1;
+        int sum = 0, i = 0, j = 0;
 
         if (toFind < 0)
             return -1;
         else if (toFind == 0)
             return l;
 
-        for (int i = 0; i < l; i++)
+        while (j < l)
         {
-            if (nums[i] == toFind)
-                maxLen = max(maxLen, i + 1);
-            if (mp.find(nums[i] - toFind) != mp.end())
-                maxLen = max(maxLen, abs(mp[nums[i] - toFind] - i));
+            sum += nums[j];
+            if (sum < toFind)
+                j++;
+            else if (sum == toFind)
+            {
+                maxLen = max(maxLen, j - i + 1);
+                j++;
+            }
+            else if (sum > toFind)
+            {
+                while (sum > toFind)
+                {
+                    sum -= nums[i];
+                    i++;
+                }
+                if (sum == toFind)
+                    maxLen = max(maxLen, j - i + 1);
+                j++;
+            }
         }
         if (maxLen == -1)
             return -1;
