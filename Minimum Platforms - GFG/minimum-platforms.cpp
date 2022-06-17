@@ -15,27 +15,24 @@ class Solution{
         sort(arr, arr + n);
         sort(dep, dep + n);
 
-        vector<int> endTime;
-        endTime.push_back(dep[0]);
+        int i = 0, j = 0, curr = 0, res = 0;
 
-        for (int i = 1; i < n; i++)
+        while (i < n)
         {
-            bool f = false;
-            for (int j = 0; j < endTime.size(); j++)
+            if (arr[i] <= dep[j])
             {
-                if (arr[i] > endTime[j])
-                {
-                    endTime[j] = dep[i];
-                    f = true;
-                    break;
-                }
+                curr++;
+                i++;
+                res = max(res, curr);
             }
-
-            if (!f)
-                endTime.push_back(dep[i]);
+            while (arr[i] > dep[j])
+            {
+                curr--;
+                j++;
+            }
         }
 
-        return endTime.size();
+        return res;
     }
 };
 
