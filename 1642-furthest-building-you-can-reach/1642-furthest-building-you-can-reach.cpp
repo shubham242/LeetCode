@@ -4,7 +4,6 @@ public:
     int furthestBuilding(vector<int> &heights, int bricks, int ladders)
     {
         int n = heights.size();
-        long sum = 0;
         priority_queue<int, vector<int>, greater<int>> q;
         int maxCount = 0;
 
@@ -19,15 +18,15 @@ public:
                 {
                     if (ladders > 0 && diff > q.top())
                     {
-                        sum += q.top();
+                        bricks -= q.top();
                         q.pop();
                         q.push(diff);
                     }
                     else
-                        sum += diff;
+                        bricks -= diff;
                 }
             }
-            if (sum <= bricks)
+            if (bricks >= 0)
                 maxCount = max(maxCount, i);
         }
         return maxCount;
