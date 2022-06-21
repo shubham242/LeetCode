@@ -3,21 +3,26 @@ class Solution
 public:
     int longestConsecutive(vector<int> &nums)
     {
-        unordered_set<int> set;
-        int ans = 0;
-        for (auto i : nums)
-            set.insert(i);
-
-        for (auto i : set)
+        set<int> hashset;
+        for (int num : nums)
         {
-            if (!set.count(i - 1))
+            hashset.insert(num);
+        }
+        int longeststreak = 0;
+        for (int num : nums)
+        {
+            if (!hashset.count(num - 1))
             {
+                int currentstreak = num;
                 int count = 1;
-                for (int j = 1; set.count(i + j); i++)
-                    count++;
-                ans = max(ans, count);
+                while (hashset.count(currentstreak + 1))
+                {
+                    currentstreak += 1;
+                    count += 1;
+                }
+                longeststreak = max(longeststreak, count);
             }
         }
-        return ans;
+        return longeststreak;
     }
 };
