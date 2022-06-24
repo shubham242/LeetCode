@@ -3,29 +3,26 @@ class Solution
 public:
     bool isPossible(vector<int> &t)
     {
-        int n = t.size();
-        if (n == 1)
-            if (t[n - 1] != 1)
-                return false;
-            else
-                return true;
         long sum = 0;
-        for (auto i : t)
-            sum += i;
+        priority_queue<int> q;
 
-        sort(t.begin(), t.end());
-        while (t[n - 1] != 1)
+        for (auto i : t)
         {
-            int temp = t[n - 1];
-            if (sum - t[n - 1] == 1)
-                return true;
-            if (t[n - 1] < sum - t[n - 1])
+            sum += i;
+            q.push(i);
+        }
+
+        while (q.top() != 1)
+        {
+            int num = q.top();
+            q.pop();
+            sum -= num;
+            if (num <= sum || sum <= 0)
                 return false;
-            t[n - 1] = (t[n - 1] % (-t[n - 1] + sum));
-            if (t[n - 1] < 1)
-                return false;
-            sum += t[n - 1] - temp;
-            sort(t.begin(), t.end());
+
+            num = num % sum;
+            sum += num;
+            q.push(num ? num : sum);
         }
         return true;
     }
