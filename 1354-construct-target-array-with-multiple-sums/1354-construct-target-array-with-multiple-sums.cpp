@@ -3,22 +3,31 @@ class Solution
 public:
     bool isPossible(vector<int> &t)
     {
-        int n = t.size();
         long sum = 0;
-        for (auto i : t)
-            sum += i;
+        priority_queue<int> q;
 
-        sort(t.begin(), t.end());
-        while (t[n - 1] != 1)
+        for (auto i : t)
         {
-            sum -= t[n - 1];
-            if (sum == 0 || sum >= t[n - 1])
+            sum += i;
+            q.push(i);
+        }
+
+        while (q.top() != 1)
+        {
+            int num = q.top();
+            q.pop();
+            sum -= num;
+
+            if (num <= sum || sum <= 0)
                 return false;
-            t[n - 1] = t[n - 1] % sum;
-            if (sum != 1 && t[n - 1] == 0)
+
+            num = num % sum;
+
+            if (num == 0 && sum != 1)
                 return false;
-            sum += t[n - 1];
-            sort(t.begin(), t.end());
+
+            sum += num;
+            q.push(num);
         }
         return true;
     }
