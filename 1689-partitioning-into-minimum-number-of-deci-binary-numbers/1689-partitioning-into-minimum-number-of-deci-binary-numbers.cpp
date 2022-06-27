@@ -6,7 +6,10 @@ public:
         int ans = 0;
 
         for (auto i : n)
-            ans = max(i - '0', ans);
+            if (i - '0' == 9)
+                return 9;
+            else
+                ans = max(i - '0', ans);
         return ans;
     }
 };
