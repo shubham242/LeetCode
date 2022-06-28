@@ -7,23 +7,20 @@ public:
         for (auto c : s)
             hash[c - 'a']++;
 
-        unordered_map<int, int> mp;
+        int count = 0, maxF = s.size();
+        sort(hash.begin(), hash.end(), greater<int>());
 
-        for (int i = 0; i < 26; i++)
-            mp[hash[i]]++;
-
-        int count = 0;
-
-        for (int i = 0; i < 26; i++)
+        for (int i = 0; i < 26 && hash[i] > 0; i++)
         {
-            while (hash[i] && mp[hash[i]] > 1)
+            if (hash[i] <= maxF)
+                maxF = hash[i] - 1;
+            else
             {
-                mp[hash[i]]--;
-                hash[i]--;
-                mp[hash[i]]++;
-                count++;
+                count += hash[i] - maxF;
+                maxF = maxF == 0 ? 0 : maxF - 1;
             }
         }
+
         return count;
     }
 };
