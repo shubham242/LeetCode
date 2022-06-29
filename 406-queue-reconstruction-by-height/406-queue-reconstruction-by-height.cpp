@@ -5,34 +5,16 @@ public:
     {
         if (v1[0] < v2[0])
             return true;
-        else if (v1[0] == v2[0])
-            return v1[1] > v2[1];
         else
-            return false;
-    }
-    void putPos(vector<vector<int>> &res, vector<int> val, int pos)
-    {
-        int curr = 0;
-
-        for (int i = 0; i < res.size(); i++)
-        {
-
-            if (res[i].size() == 0)
-                curr++;
-            if (curr == pos)
-            {
-                res[i] = val;
-                break;
-            }
-        }
+            return v1[0] == v2[0] && v1[1] > v2[1];
     }
     vector<vector<int>> reconstructQueue(vector<vector<int>> &people)
     {
         int n = people.size();
         sort(people.begin(), people.end(), comp);
-        vector<vector<int>> res(n, vector<int>(0));
-        for (int i = 0; i < n; i++)
-            putPos(res, people[i], people[i][1] + 1);
+        vector<vector<int>> res;
+        for (int i = n - 1; i >= 0; i--)
+            res.insert(res.begin() + people[i][1], people[i]);
 
         return res;
     }
