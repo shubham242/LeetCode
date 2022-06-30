@@ -3,11 +3,7 @@ public:
     int minMoves2(vector<int>& nums) {
         int n=nums.size();
         sort(nums.begin(),nums.end());
-        int avg;
-        if(n%2==0)
-            avg=(nums[n/2]+nums[n/2-1])/2;
-        else
-            avg=nums[n/2];
+        int avg=nums[n/2];
         
         int res=0;
         for(int i:nums)
