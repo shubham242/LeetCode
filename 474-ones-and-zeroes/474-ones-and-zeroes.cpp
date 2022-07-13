@@ -27,7 +27,22 @@ public:
     }
     int findMaxForm(vector<string> &strs, int m, int n)
     {
-        vector<vector<vector<int>>> dp(strs.size(), vector<vector<int>>(m + 1, vector<int>(n + 1, -1)));
-        return recurr(strs, m, n, strs.size() - 1, dp);
+        vector<vector<vector<int>>> dp(strs.size() + 1, vector<vector<int>>(m + 1, vector<int>(n + 1, 0)));
+
+        for (int i = 1; i <= strs.size(); i++)
+        {
+            pair<int, int> str = parse(strs[i - 1]);
+            for (int j = 0; j <= m; j++)
+            {
+                for (int k = 0; k <= n; k++)
+                {
+                    if (str.first <= j && str.second <= k)
+                        dp[i][j][k] = max(dp[i - 1][j][k], 1 + dp[i - 1][j - str.first][k - str.second]);
+                    else
+                        dp[i][j][k] = dp[i - 1][j][k];
+                }
+            }
+        }
+        return dp[strs.size()][m][n];
     }
 };
