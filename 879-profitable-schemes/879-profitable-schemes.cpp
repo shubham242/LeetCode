@@ -5,26 +5,27 @@ public:
     {
         int l = group.size();
         int M = 1e9 + 7;
-        long dp[group.size() + 1][minProfit + 1][n + 1];
+        long dp[minProfit + 1][n + 1];
         memset(dp, 0, sizeof(dp));
-        dp[0][0][0] = 1;
+        dp[0][0] = 1;
 
         for (int i = 1; i <= l; i++)
         {
-            dp[i][0][0] = 1;
+            long prev[minProfit + 1][n + 1];
+            copy(&dp[0][0], &dp[0][0] + (minProfit + 1) * (n + 1), &prev[0][0]);
 
             for (int j = 0; j <= minProfit; j++)
                 for (int k = 0; k <= n; k++)
-                    dp[i][j][k] = dp[i - 1][j][k];
+                    dp[j][k] = prev[j][k];
 
             for (int j = 0; j <= minProfit; j++)
                 for (int k = 0; k <= n; k++)
                     if (k + group[i - 1] <= n)
-                        dp[i][min(minProfit, j + profit[i - 1])][k + group[i - 1]] += dp[i - 1][j][k] % M;
+                        dp[min(minProfit, j + profit[i - 1])][k + group[i - 1]] += prev[j][k] % M;
         }
         long ans = 0;
         for (int i = 0; i <= n; i++)
-            ans += dp[l][minProfit][i] % M;
+            ans += dp[minProfit][i] % M;
         return ans % M;
     }
 };
