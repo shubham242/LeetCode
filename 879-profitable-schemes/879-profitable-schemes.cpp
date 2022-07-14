@@ -1,24 +1,30 @@
 class Solution
 {
 public:
-    long dp[101][101][101];
-    int M = 1e9 + 7;
-    int solve(int n, int minProfit, vector<int> &group, vector<int> &profit, int index)
-    {
-        if (n == 0)
-            return minProfit <= 0;
-        if (index == group.size())
-            return minProfit <= 0;
-        if (dp[n][minProfit][index] != -1)
-            return dp[n][minProfit][index];
-        int res = solve(n, minProfit, group, profit, index + 1) % M;
-        if (group[index] <= n)
-            res += solve(n - group[index], max(0, minProfit - profit[index]), group, profit, index + 1) % M;
-        return dp[n][minProfit][index] = res % M;
-    }
     int profitableSchemes(int n, int minProfit, vector<int> &group, vector<int> &profit)
     {
-        memset(dp, -1, sizeof(dp));
-        return solve(n, minProfit, group, profit, 0) % M;
+        int l = group.size();
+        int M = 1e9 + 7;
+        long dp[group.size() + 1][minProfit + 1][n + 1];
+        memset(dp, 0, sizeof(dp));
+        dp[0][0][0] = 1;
+
+        for (int i = 1; i <= l; i++)
+        {
+            dp[i][0][0] = 1;
+
+            for (int j = 0; j <= minProfit; j++)
+                for (int k = 0; k <= n; k++)
+                    dp[i][j][k] = dp[i - 1][j][k];
+
+            for (int j = 0; j <= minProfit; j++)
+                for (int k = 0; k <= n; k++)
+                    if (k + group[i - 1] <= n)
+                        dp[i][min(minProfit, j + profit[i - 1])][k + group[i - 1]] += dp[i - 1][j][k] % M;
+        }
+        long ans = 0;
+        for (int i = 0; i <= n; i++)
+            ans += dp[l][minProfit][i] % M;
+        return ans % M;
     }
 };
