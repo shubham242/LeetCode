@@ -1,25 +1,35 @@
 class Solution
 {
 public:
-    long hash[51][51][51];
-    int M = 1e9 + 7;
-    long solve(int m, int n, int maxMove, int startRow, int startColumn)
-    {
-        if (maxMove >= 0 && (startRow < 0 || startRow >= m || startColumn < 0 || startColumn >= n))
-            return 1;
-        if (maxMove < 0)
-            return 0;
-        if (hash[startRow][startColumn][maxMove] != -1)
-            return hash[startRow][startColumn][maxMove] % M;
-        return hash[startRow][startColumn][maxMove] =
-                   solve(m, n, maxMove - 1, startRow - 1, startColumn) % M +
-                   solve(m, n, maxMove - 1, startRow + 1, startColumn) % M +
-                   solve(m, n, maxMove - 1, startRow, startColumn - 1) % M +
-                   solve(m, n, maxMove - 1, startRow, startColumn + 1) % M;
-    }
     int findPaths(int m, int n, int maxMove, int startRow, int startColumn)
     {
-        memset(hash, -1, sizeof(hash));
-        return solve(m, n, maxMove, startRow, startColumn) % M;
+        int M = 1e9 + 7;
+        int dp[m][n];
+        memset(dp, 0, sizeof(dp));
+        dp[startRow][startColumn] = 1;
+        int count = 0;
+        for (int moves = 1; moves <= maxMove; moves++)
+        {
+            int temp[m][n];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (i == m - 1)
+                        count = (count + dp[i][j]) % M;
+                    if (j == n - 1)
+                        count = (count + dp[i][j]) % M;
+                    if (i == 0)
+                        count = (count + dp[i][j]) % M;
+                    if (j == 0)
+                        count = (count + dp[i][j]) % M;
+                    temp[i][j] = (((i > 0 ? dp[i - 1][j] : 0) + (i < m - 1 ? dp[i + 1][j] : 0)) % M +
+                                  ((j > 0 ? dp[i][j - 1] : 0) + (j < n - 1 ? dp[i][j + 1] : 0)) % M) %
+                                 M;
+                }
+            }
+            copy(&temp[0][0], &temp[0][0] + m * n, &dp[0][0]);
+        }
+        return count;
     }
 };
