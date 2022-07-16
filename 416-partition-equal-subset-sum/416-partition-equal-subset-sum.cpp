@@ -8,18 +8,25 @@ public:
         if (total % 2 != 0)
             return false;
 
-        int dp[l][total + 1];
+        int dp[total / 2 + 1];
         memset(dp, 0, sizeof(dp));
 
-        dp[0][nums[0]] = 1;
-        dp[0][0] = 1;
+        if (nums[0] <= total / 2)
+            dp[nums[0]] = 1;
+        dp[0] = 1;
+
         for (int i = 1; i < l; i++)
+        {
+            int prev[total / 2 + 1];
+            copy(&dp[0], &dp[0] + (total / 2 + 1), &prev[0]);
+
             for (int j = 0; j < total / 2 + 1; j++)
                 if (j - nums[i] >= 0)
-                    dp[i][j] = dp[i - 1][j - nums[i]] || dp[i - 1][j];
+                    dp[j] = prev[j - nums[i]] || prev[j];
                 else
-                    dp[i][j] = dp[i - 1][j];
+                    dp[j] = prev[j];
+        }
 
-        return dp[l - 1][total / 2];
+        return dp[total / 2];
     }
 };
