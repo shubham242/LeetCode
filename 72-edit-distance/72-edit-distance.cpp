@@ -5,15 +5,15 @@ public:
     {
         int m = word1.size();
         int n = word2.size();
-        int dp[n + 1], prev[n + 1];
+        int dp[n + 1];
         memset(dp, 0, sizeof(dp));
-        memset(prev, 0, sizeof(prev));
 
         for (int i = 0; i <= n; i++)
             dp[i] = i;
 
         for (int i = 1; i <= m; i++)
         {
+            int prev[n + 1];
             copy(&dp[0], &dp[0] + n + 1, &prev[0]);
             dp[0] = i;
 
