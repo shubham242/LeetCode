@@ -1,4 +1,3 @@
-
 class Solution
 {
 public:
@@ -6,13 +5,15 @@ public:
     {
         if (n == 1)
             return 1;
-        int dp[n + 1];
-        memset(dp, -1, sizeof(dp));
-        dp[1] = 1;
-        dp[2] = 2;
+        int dp1 = 1;
+        int dp2 = 2;
 
         for (int i = 3; i <= n; i++)
-            dp[i] = dp[i - 1] + dp[i - 2];
-        return dp[n];
+        {
+            int dp = dp1 + dp2;
+            dp1 = dp2;
+            dp2 = dp;
+        }
+        return dp2;
     }
 };
