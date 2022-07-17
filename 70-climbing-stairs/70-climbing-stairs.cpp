@@ -10,9 +10,8 @@ public:
 
         for (int i = 3; i <= n; i++)
         {
-            int dp = dp1 + dp2;
-            dp1 = dp2;
-            dp2 = dp;
+            dp2 += dp1;
+            dp1 = dp2 - dp1;
         }
         return dp2;
     }
