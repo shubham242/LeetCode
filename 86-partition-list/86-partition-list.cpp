@@ -16,8 +16,9 @@ public:
                 curr->next = ptr->next;
                 curr = curr->next;
                 ptr->next = ptr->next->next;
-            }else
-            ptr = ptr->next;
+            }
+            else
+                ptr = ptr->next;
         }
         curr->next = temp->next;
         return n->next;
