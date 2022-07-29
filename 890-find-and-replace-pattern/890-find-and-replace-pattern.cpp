@@ -1,0 +1,35 @@
+class Solution
+{
+public:
+    string stringToHash(string s)
+    {
+        int n = s.size();
+        string hash = "";
+        unordered_map<char, int> mp;
+        int arr[n];
+        memset(arr, 0, sizeof(arr));
+        int count = 1;
+        for (int i = 0; i < n; i++)
+            if (mp.find(s[i]) == mp.end())
+            {
+                mp[s[i]] = count;
+                arr[i] = count;
+                count++;
+            }
+            else
+                arr[i] = mp[s[i]];
+        for (int i = 0; i < n; i++)
+            hash += '0' + arr[i];
+        return hash;
+    }
+    vector<string> findAndReplacePattern(vector<string> &words, string pattern)
+    {
+        string hash = stringToHash(pattern);
+        vector<string> res;
+        int n = words.size();
+        for (int i = 0; i < n; i++)
+            if (stringToHash(words[i]) == hash)
+                res.push_back(words[i]);
+        return res;
+    }
+};
