@@ -4,7 +4,6 @@ public:
     map<int, int> tree;
     MyCalendar()
     {
-        tree = *(new map<int, int>);
     }
 
     bool book(int start, int end)
