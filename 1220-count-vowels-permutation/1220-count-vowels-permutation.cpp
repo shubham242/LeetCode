@@ -1,29 +1,23 @@
 class Solution
 {
 public:
-    int M = 1e9 + 7;
-    int dp[5][20000];
-    long recurr(char prev, int n)
-    {
-        if (n == 0)
-            return 1;
-        if (dp[prev][n] != -1)
-            return dp[prev][n];
-
-        if (prev == 0)
-            return dp[prev][n] = recurr(1, n - 1) % M;
-        if (prev == 1)
-            return dp[prev][n] = (recurr(0, n - 1) % M + recurr(2, n - 1) % M) % M;
-        if (prev == 2)
-            return dp[prev][n] = (recurr(0, n - 1) % M + recurr(1, n - 1) % M + recurr(3, n - 1) % M + recurr(4, n - 1) % M) % M;
-        if (prev == 3)
-            return dp[prev][n] = (recurr(2, n - 1) % M + recurr(4, n - 1) % M) % M;
-
-        return dp[prev][n] = recurr(0, n - 1) % M;
-    }
     int countVowelPermutation(int n)
     {
-        memset(dp, -1, sizeof(dp));
-        return (recurr(0, n - 1) + recurr(1, n - 1) + recurr(2, n - 1) + recurr(3, n - 1) + recurr(4, n - 1)) % M;
+        int M = 1e9 + 7;
+        long dp[5][n];
+        memset(dp, 0, sizeof(dp));
+
+        for (int j = 0; j < 5; j++)
+            dp[j][0] = 1;
+        for (int i = 1; i < n; i++)
+        {
+            dp[0][i] = (dp[1][i - 1]) % M;
+            dp[1][i] = (dp[0][i - 1] + dp[2][i - 1]) % M;
+            dp[2][i] = (dp[0][i - 1] + dp[1][i - 1] + dp[3][i - 1] + dp[4][i - 1]) % M;
+            dp[3][i] = (dp[2][i - 1] + dp[4][i - 1]) % M;
+            dp[4][i] = (dp[0][i - 1]) % M;
+        }
+
+        return (dp[0][n - 1] + dp[1][n - 1] + dp[2][n - 1] + dp[3][n - 1] + dp[4][n - 1]) % M;
     }
 };
