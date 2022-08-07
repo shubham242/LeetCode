@@ -1,24 +1,16 @@
 class Solution
 {
 public:
-    int dp[1001];
-    int recurr(vector<int> &nums, int target)
-    {
-        if (target < 0)
-            return 0;
-        if (target == 0)
-            return 1;
-        if (dp[target] != -1)
-            return dp[target];
-        int sum = 0;
-
-        for (int i = 0; i < nums.size(); i++)
-            sum += recurr(nums, target - nums[i]);
-        return dp[target] = sum;
-    }
     int combinationSum4(vector<int> &nums, int target)
     {
-        memset(dp, -1, sizeof(dp));
-        return recurr(nums, target);
+        unsigned long long dp[target + 1];
+        memset(dp, 0, sizeof(dp));
+
+        dp[0] = 1;
+        for (int i = 1; i <= target; i++)
+            for (int j = 0; j < nums.size(); j++)
+                if (i - nums[j] >= 0)
+                    dp[i] += dp[i - nums[j]];
+        return dp[target];
     }
 };
