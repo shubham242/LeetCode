@@ -5,10 +5,10 @@ class Solution {
         return sq * sq == n;
     }
     int numSquares(int n) {
-        vector<int> dp(n + 1, INT_MAX);
-        dp[0] = 0;
+        int dp[n + 1];
 
         for (int i = 1; i <= n; i++) {
+            dp[i] = i;
             if (isSquare(i)) {
                 dp[i] = 1;
                 continue;
