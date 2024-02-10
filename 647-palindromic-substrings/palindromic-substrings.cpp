@@ -1,24 +1,21 @@
 class Solution {
    public:
-    bool isPalindrome(string s, int start, int end, vector<vector<int>> &dp) {
-        if (start >= end)
-            return true;
-        if (dp[start][end] != -1)
-            return dp[start][end];
-
-        else if (s[start] == s[end])
-            return dp[start][end] = isPalindrome(s, start + 1, end - 1, dp);
-        else
-            return dp[start][end] = false;
-    }
     int countSubstrings(string s) {
-        int n = s.size(), res = n;
-        vector<vector<int>> dp(n, vector<int>(n, -1));
+        int n = s.size(), res = 0;
+        vector<vector<int>> dp(n, vector<int>(n, 0));
 
-        for (int i = 0; i < n; i++)
-            for (int j = i + 1; j < n; j++)
-                if (isPalindrome(s, i, j, dp))
-                    res++;
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
+                if (i == j)
+                    dp[i][j] = 1;
+                else if (i + 1 == j)
+                    dp[i][j] = (s[i] == s[j] ? 1 : 0);
+                else
+                    dp[i][j] = (s[i] == s[j] ? dp[i + 1][j - 1] : 0);
+
+                res += dp[i][j];
+            }
+        }
 
         return res;
     }
