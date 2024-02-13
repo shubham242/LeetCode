@@ -4,11 +4,7 @@ class Solution {
         int rows = grid.size(), cols = grid[0].size();
         vector<vector<int>> dp(grid[0].size(), vector<int>(grid[0].size(), 0));
 
-        for (int y1 = 0; y1 < cols; y1++)
-            for (int y2 = 0; y2 < cols; y2++)
-                dp[y1][y2] = grid[rows - 1][y1] + (y1 != y2 ? grid[rows - 1][y2] : 0);
-
-        for (int r = rows - 2; r >= 0; r--) {
+        for (int r = rows - 1; r >= 0; r--) {
             vector<vector<int>> prev = dp;
             for (int c1 = cols - 1; c1 >= 0; c1--) {
                 for (int c2 = cols - 1; c2 >= 0; c2--) {
