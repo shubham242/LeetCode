@@ -1,13 +1,15 @@
 class Solution {
    public:
     int partition(vector<int>& nums, int low, int high) {
-        int randIdx = rand() % (high - low + 1) + low;
-        int pivot = nums[randIdx];
-        swap(nums[randIdx], nums[high]);
+        int pivotIdx = rand() % (high - low + 1) + low;
+        swap(nums[pivotIdx], nums[high]);
+        pivotIdx = high;
+
         int partition_index = low;
         for (int j = low; j < high; j++)
-            if (nums[j] < pivot)
-                swap(nums[partition_index], nums[j]), partition_index++;
+            if (nums[j] < nums[pivotIdx])
+                swap(nums[partition_index++], nums[j]);
+
         swap(nums[partition_index], nums[high]);
         return partition_index;
     }
