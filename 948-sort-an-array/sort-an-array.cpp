@@ -1,7 +1,7 @@
 class Solution {
    public:
     int partition(vector<int>& nums, int low, int high) {
-        int pivotIdx = rand() % (high - low + 1) + low;
+        int pivotIdx = (low + high) / 2;
         swap(nums[pivotIdx], nums[high]);
         pivotIdx = high;
 
