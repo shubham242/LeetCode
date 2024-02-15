@@ -7,12 +7,12 @@ class Solution {
         vector<long long> prefixSum(n, 0);
 
         prefixSum[0] = nums[0];
-        for (int i = 1; i < n; i++)
+        prefixSum[1] = nums[0] + nums[1];
+        for (int i = 2; i < n; i++) {
             prefixSum[i] = prefixSum[i - 1] + nums[i];
-
-        for (int i = 2; i < n; i++)
             if (nums[i] < prefixSum[i - 1])
                 maxSum = max(maxSum, prefixSum[i]);
+        }
 
         return maxSum;
     }
