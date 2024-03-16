@@ -22,15 +22,13 @@ class Solution {
                 hash[min_index]++;
             }
         }
+        
         sort(temp.begin(), temp.end());
 
         int j = 0;
-        for (int i = 0; i < n; i++) {
-            if (s[i] == '?') {
-                s[i] = temp[j];
-                j++;
-            }
-        }
+        for (int i = 0; i < n; i++) 
+            if (s[i] == '?') 
+                s[i] = temp[j++];
 
         return s;
     }
