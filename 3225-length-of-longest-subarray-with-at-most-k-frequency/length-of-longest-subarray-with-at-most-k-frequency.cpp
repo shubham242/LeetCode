@@ -9,8 +9,7 @@ public:
 
             if(mp[nums[r]]>k){
                 while(nums[l]!=nums[r])
-                    mp[nums[l++]]--;\
-
+                    mp[nums[l++]]--;
                 mp[nums[l++]]--;
             }
 
